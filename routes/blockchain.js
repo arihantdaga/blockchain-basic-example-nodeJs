@@ -55,4 +55,31 @@ router.get("/chain",(req,res,next)=>{
     return res.json(fullChain);
 });
 
+router.post("/nodes/register",(req,res,next)=>{
+    if(!req.body.nodes){
+        return next({status:400,message:"Invalid Nodes List"});
+    }
+    req.body.nodes.map(node=> blockchain.registerNode(node));
+    return res.json({
+        message:"New Nodes have been added",
+        "total_nodes": [...blockchain.nodes]
+    });
+});
+
+router.get("/nodes/resolve",(req,res,next)=>{
+    let response = {}
+    blockchain.resolveConflict().then(replaced=>{
+        if(replaced){
+            response.message = "Our Chain was replaced",
+            response.new_chain = blockchain.chain
+        }else{
+            response.message = "Our chain is authoritative",
+            response.chain = blockchain.chain
+        }
+        return res.json(response);
+    }).catch(err=>{
+        return next(err);
+    })
+});
+
 module.exports = router;
