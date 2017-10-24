@@ -18,7 +18,7 @@ class BlockChain{
             timestamp : Date.now(),
             transactions: this.current_transactions,
             proof:proof,
-            previous_hash : previous_hash || this._hash(chain[chain.length-1])
+            previous_hash : previous_hash || this._hash(this.chain[this.chain.length-1])
         };
         this.chain.push(block);
         this.current_transactions = [];
@@ -26,7 +26,7 @@ class BlockChain{
     }
 
     lastBlock(){
-        return this.chain.slice(-1);
+        return this.chain[this.chain.length-1];
     }
 
     _hash(block){
@@ -48,15 +48,15 @@ class BlockChain{
          * :return: <int>
         */
         let proof = 0;
-        while (!isValidProof(last_proof,proof))
+        while (!this.isValidProof(last_proof,proof))
             proof+=1;
 
         
     }
 
     isValidProof(last_proof,proof){
-        let hash = CryptoJs.SHA256(`${last_proof}${proof}`).toString(CryptoJs.enc.Hex)
-        return hash.slice(0,4).join("") == "0000";
+        let hash = CryptoJs.SHA256(`${last_proof}${proof}`).toString(CryptoJs.enc.Hex);
+        return hash.substr(0,4) == "0000";
     }
 
 }

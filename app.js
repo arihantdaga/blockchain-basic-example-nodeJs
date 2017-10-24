@@ -5,9 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var blockchain = require('./routes/blockchain');
-
+const uuid = require("uuid4");
 
 var app = express();
+
+const node_id = uuid();
+
+app.set("node_id", node_id);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
