@@ -1,7 +1,7 @@
 
 # ExpressChain - NodeJs - Http - Implementation of basic Blockchain
 
-Expresschain is basic implentation of Blockchain for people who are struggling hard to understand What Blockchain is basically. 
+Expresschain is basic implentation of Blockchain in NodeJs for people who are struggling hard to understand What Blockchain is basically. 
 
 This Repository is inspired by this articly on hackernoon - https://hackernoon.com/learn-blockchains-by-building-one-117428612f46
 
